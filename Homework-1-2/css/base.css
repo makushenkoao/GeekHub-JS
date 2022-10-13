@@ -1,0 +1,15 @@
+html, body {
+    font-family: 'Circular Std';
+    font-weight: normal;
+    font-style: normal;
+}
+
+.container {
+    max-width: 1440px;
+    padding: 31px 15px;
+    margin: 0 auto;
+}
+
+.block-hide {
+    display: none;
+}
