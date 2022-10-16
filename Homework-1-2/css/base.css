@@ -2,11 +2,21 @@ html, body {
     font-family: 'Circular Std';
     font-weight: normal;
     font-style: normal;
+    height: 100%;
 }
+
+.none {
+	display: none !important;
+}
+
+.no-scroll {
+	overflow: hidden;
+}
+
 
 .container {
     max-width: 1440px;
-    padding: 31px 15px;
+    padding: 0 15px;
     margin: 0 auto;
 }
 
