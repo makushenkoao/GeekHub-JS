@@ -7,3 +7,4 @@ mobileNavButton.addEventListener('click', function () {
 	mobileNav.classList.toggle('active');
     document.body.classList.toggle('no-scroll')
 })
+
