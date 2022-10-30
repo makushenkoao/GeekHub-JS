@@ -71,4 +71,4 @@ function findWaterDepth(arr) {
         waterDepth += Math.min(leftArr, rightArr) - arr[i];
     }
     return waterDepth;
-}
+};
