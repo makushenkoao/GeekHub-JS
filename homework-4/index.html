@@ -4,22 +4,26 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/reset.css">
-    <title>homework-4</title>
+    <title>homework 4</title>
 </head>
 <body>
 <div class="container">
-    <div id="toDoList" class="todo-list">
-        <h1 class="todo-list-title">To Do List</h1>
-        <div class="create-new-todo">
-            <input class="todo-list-input" type="text" id="toDoListInput" placeholder="Add your task">
-            <button id="toDoListAddBtn" class="todo-list-btn">Add task</button>
+    <h1 class="todo-title">ToDo List</h1>
+    <div class="todo-header">
+        <h2 class="todo-subtitle">Your tasks</h2>
+        <button id="sortAlphabet" class="sort-alphabet btn-click">Alphabet sorting</button>
+        <button id="sortTime" class="sort-time btn-click">Time sorting</button>
+    </div>
+    <div class="todo-list"><ul id="tasksList" class="todo-list-tasks"></ul></div>
+    <div class="add-task">
+        <div class="add-task-title">
+            <h2>Add your task</h2>
+        </div>
+        <div class="add-task-form">
+            <input id="inputTask" class="add-task-form-text" type="text" placeholder="Write text...">
+            <button id="addTask" type="submit" class="add-task-form-btn btn-click">Add</button>
         </div>
     </div>
-    <ul id="ToDoListUl" class="list">
-        <li>To do my homework in economics</li>
-        <li>Clean the room</li>
-        <li>Cook dinner</li>
-    </ul>
 </div>
 <script src="./main.js"></script>
 </body>
