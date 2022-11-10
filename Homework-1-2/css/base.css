@@ -20,6 +20,11 @@ html, body {
     margin: 0 auto;
 }
 
+.container-wide {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
 .block-hide {
     display: none;
 }

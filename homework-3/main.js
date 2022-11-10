@@ -3,12 +3,17 @@
 // 1.1
 
 function methodGlueStrings(array, cb) {
-    return cb(array);
+    let res = '';
+    for (let item of array) {
+        res += cb(item);
+    }
+    return res;
 }
 
 function callbackGlueString(item) {
-    return item.map(elem => `${elem[0].toUpperCase()}${elem.slice(1)}`).join('');
-    ;
+    let res = item.split('');
+    res.shift();
+    return item[0].toUpperCase() + res.join('')
 }
 
 console.log(methodGlueStrings(['my', 'name', 'is', 'Vasya'], callbackGlueString))
@@ -16,11 +21,15 @@ console.log(methodGlueStrings(['my', 'name', 'is', 'Vasya'], callbackGlueString)
 // 1.2
 
 function methodAddNumber(array, cb) {
-    return cb(array);
+    let res = '';
+    for (let item of array) {
+        res += cb(item);
+    }
+    return res;
 }
 
 function callbackAddNumber(item) {
-    return item.map(elem => elem * 10).join(',');
+    return `${item * 10}, `
 }
 
 console.log(methodAddNumber([10, 20, 30], callbackAddNumber));
@@ -28,11 +37,15 @@ console.log(methodAddNumber([10, 20, 30], callbackAddNumber));
 // 1.3
 
 function userInfo(array, cb) {
-    return array.map(cb).join(', ')
+    let res = '';
+    for (let item of array) {
+        res += cb(item);
+    }
+    return res;
 }
 
 function callbackUserInfo(item) {
-    return item.name + ' is ' + item.age;
+    return `${item.name} is ${item.age}, `
 }
 
 console.log(userInfo([{age: 45, name: 'Jon'}, {age: 20, name: 'Aaron'}], callbackUserInfo));
@@ -40,11 +53,15 @@ console.log(userInfo([{age: 45, name: 'Jon'}, {age: 20, name: 'Aaron'}], callbac
 // 1.4
 
 function methodReverseArray(array, cb) {
-    return cb(array)
+    let res = '';
+    for (let item of array) {
+        res += cb(item);
+    }
+    return res;
 }
 
 function callbackReverseArray(item) {
-    return item.map(elem => elem.split('').reverse().join('')).join(',');
+    return item.split('').reverse().join('') + ', '
 }
 
 console.log(methodReverseArray(['abc', '123'], callbackReverseArray));
@@ -103,28 +120,24 @@ const element = {
         return this.height;
     }
 };
-const getElementHeight = element.getHeight.call(element);
+let getElementHeight = element.getHeight;
+console.log(getElementHeight.call(element));
+
 
 // task 4
 
-const convertToObject = (num) => {
-    const obj = {
-        value: num,
-        isOdd: Boolean(num % 2)
-    };
-    return obj;
-}
-
+const convertToObject = (num) => ({
+    value: num,
+    isOdd: Boolean(num % 2)
+});
 
 // task 5
 
 // 5.1
 
 function minusNumbers(num = 0) {
-    let x = num;
-    return (num = 0) => x - num;
+    return (x = 0) => num - x;
 }
-
 
 // 5.2
 
@@ -139,28 +152,22 @@ const multiply = multiplyMaker(2);
 
 function stringModule() {
     let str = '';
-
-    function setStr(val = '') {
-        str = String(val);
-    }
-
-    function getStr() {
-        return str;
-    }
-
-    function strReverse() {
-        return str.split('').reverse().join('');
-    }
-
-    function strLength() {
-        return str.length;
-    }
-
     return {
-        setStr,
-        getStr,
-        strReverse,
-        strLength
+        setStr(val = '') {
+            str = String(val);
+        },
+
+        getStr() {
+            return str;
+        },
+
+        strReverse() {
+            return str.split('').reverse().join('');
+        },
+
+        strLength() {
+            return str.length;
+        }
     }
 }
 
@@ -171,60 +178,46 @@ const str = stringModule()
 
 function calcModule() {
     let num = 0;
-
-    function setNum(val) {
-        num = val;
-        return this;
-    }
-
-    function getNum() {
-        return num;
-    }
-
-    function numPlus(val) {
-        num += val;
-        return this;
-    }
-
-    function numMinus(val) {
-        num -= val;
-        return this;
-    }
-
-    function numMultiply(val) {
-        num *= val;
-        return this;
-    }
-
-    function numDivide(val) {
-        num /= val;
-        return this
-    }
-
-    function numPow(val) {
-        num = Math.pow(num, val);
-        return this;
-    }
-
     return {
-        setNum,
-        getNum,
-        numPlus,
-        numMinus,
-        numMultiply,
-        numDivide,
-        numPow
+        setNum(val) {
+            num = val;
+            return this;
+        },
+
+        getNum() {
+            return num;
+        },
+
+        numPlus(val) {
+            num += val;
+            return this;
+        },
+
+        numMinus(val) {
+            num -= val;
+            return this;
+        },
+
+        numMultiply(val) {
+            num *= val;
+            return this;
+        },
+
+        numDivide(val) {
+            num /= val;
+            return this
+        },
+
+        numPow(val) {
+            num = Math.pow(num, val);
+            return this;
+        }
     }
 }
+
 
 const result = calcModule();
 
 // task 6
 
-function sum(a) {
-    return function (b) {
-        return function (c) {
-            return a + b + c
-        }
-    }
-}
+const sum = a => b => c => a + b + c;
