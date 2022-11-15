@@ -1,14 +1,22 @@
 // task 1
 
-// 1.1
-
-function methodGlueStrings(array, cb) {
+function joinStrings(array, cb) {
     let res = '';
     for (let item of array) {
         res += cb(item);
     }
     return res;
 }
+
+function parsingArray (array, cb) {
+    let res = '';
+    for (let item of array) {
+        res += cb(item);
+    }
+    return res.slice(0,-2);
+}
+
+// 1.1
 
 function callbackGlueString(item) {
     let res = item.split('');
@@ -16,55 +24,32 @@ function callbackGlueString(item) {
     return item[0].toUpperCase() + res.join('')
 }
 
-console.log(methodGlueStrings(['my', 'name', 'is', 'Vasya'], callbackGlueString))
+console.log(joinStrings(['my', 'name', 'is', 'Vasya'], callbackGlueString))
 
 // 1.2
 
-function methodAddNumber(array, cb) {
-    let res = '';
-    for (let item of array) {
-        res += cb(item);
-    }
-    return res;
-}
 
 function callbackAddNumber(item) {
     return `${item * 10}, `
 }
 
-console.log(methodAddNumber([10, 20, 30], callbackAddNumber));
+console.log(parsingArray([10, 20, 30], callbackAddNumber));
 
 // 1.3
-
-function userInfo(array, cb) {
-    let res = '';
-    for (let item of array) {
-        res += cb(item);
-    }
-    return res;
-}
 
 function callbackUserInfo(item) {
     return `${item.name} is ${item.age}, `
 }
 
-console.log(userInfo([{age: 45, name: 'Jon'}, {age: 20, name: 'Aaron'}], callbackUserInfo));
+console.log(parsingArray([{age: 45, name: 'Jon'}, {age: 20, name: 'Aaron'}], callbackUserInfo));
 
 // 1.4
-
-function methodReverseArray(array, cb) {
-    let res = '';
-    for (let item of array) {
-        res += cb(item);
-    }
-    return res;
-}
 
 function callbackReverseArray(item) {
     return item.split('').reverse().join('') + ', '
 }
 
-console.log(methodReverseArray(['abc', '123'], callbackReverseArray));
+console.log(parsingArray(['abc', '123'], callbackReverseArray));
 
 // task 2
 
@@ -115,13 +100,15 @@ const numerator = {
 // 2.4
 
 const element = {
-    height: 25,
-    getHeight: function () {
-        return this.height;
-    }
+  height: function () {
+    return 25
+  },
+  getHeight: function () {
+    return this.height;
+  }
 };
-let getElementHeight = element.getHeight;
-console.log(getElementHeight.call(element));
+const getElementHeight = element.getHeight();
+getElementHeight()
 
 
 // task 4
