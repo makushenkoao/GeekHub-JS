@@ -139,10 +139,10 @@ function toDoListApp() {
             span.removeAttribute('contentEditable');
             btn.innerHTML = '<img src="./img/edit.svg" alt="done">';
             tasks[i].text = span.textContent;
-            divTime.innerHTML = setTime()
             tasks[i].hoursCreatedAt = new Date().getHours();
             tasks[i].minutesCreatedAt = new Date().getMinutes();
             tasks[i].createdAd = Date.now();
+            divTime.innerHTML = setTime()
         }
         span.focus();
         saveList(tasks);
