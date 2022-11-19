@@ -25,7 +25,7 @@ function toDoListApp() {
         const editButton = document.createElement('button');
         const attr = document.createAttribute('draggable');
 
-        divTime.innerHTML = setTime()
+        divTime.innerHTML = setDate()
         doneButton.innerHTML = '<img src="./img/done.svg" alt="done">';
         deleteButton.innerHTML = '<img src="./img/delete.svg" alt="delete">';
         editButton.innerHTML = '<img src="./img/edit.svg" alt="edit">';
@@ -65,6 +65,9 @@ function toDoListApp() {
             text: inputTask.value,
             done: false,
             createdAd: Date.now(),
+            yearCreatedAt: new Date().getFullYear(),
+            monthCreatedAt: new Date().getMonth(),
+            dayCreatedAt: new Date().getDay(),
             hoursCreatedAt: new Date().getHours(),
             minutesCreatedAt: new Date().getMinutes(),
         };
@@ -91,12 +94,12 @@ function toDoListApp() {
         for (let item of tasks) {
             const listItem = createTaskElem(item.text, tasks);
             const divTime = listItem.querySelector('div.time');
-            divTime.innerHTML = `${item.hoursCreatedAt}:${item.minutesCreatedAt}`
+            console.log(item)
+            divTime.innerHTML = `${item.dayCreatedAt}.${item.monthCreatedAt}.${item.yearCreatedAt} ${item.hoursCreatedAt}:${item.minutesCreatedAt}`
             if (item.done === true) listItem.classList.add('done-task')
             listItem.setAttribute('data-task-index', c++)
             tasksList.appendChild(listItem);
             bindTaskEvents(listItem)
-
         }
     }
 
@@ -141,19 +144,29 @@ function toDoListApp() {
             tasks[i].text = span.textContent;
             tasks[i].hoursCreatedAt = new Date().getHours();
             tasks[i].minutesCreatedAt = new Date().getMinutes();
+            tasks[i].yearCreatedAt = new Date().getFullYear();
+            tasks[i].monthCreatedAt = new Date().getMonth();
+            tasks[i].dayCreatedAt = new Date().getDay();
             tasks[i].createdAd = Date.now();
-            divTime.innerHTML = setTime()
+            divTime.innerHTML = setDate()
         }
         span.focus();
         saveList(tasks);
     }
 
-    function setTime() {
+    function setDate() {
+        let date = new Date();
+        let year = date.getFullYear()
+        let month = date.getMonth()
+        let day = date.getDay();
         let hours = new Date().getHours();
         let minutes = new Date().getMinutes();
+        year = year < 10 ? '0' + year : year;
+        month = month < 10 ? '0' + month : month;
+        day = day < 10 ? '0' + day : day;
         hours = hours < 10 ? '0' + hours : hours;
         minutes = minutes < 10 ? '0' + minutes : minutes;
-        return `${hours}:${minutes}`
+        return `${day}.${month}.${year} ${hours}:${minutes}`;
     }
 
     function bindTaskEvents(listItem) {
