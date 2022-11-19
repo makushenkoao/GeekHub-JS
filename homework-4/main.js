@@ -76,7 +76,6 @@ function toDoListApp() {
         listItem.setAttribute('data-task-index', index)
         tasks.push(newTask)
         tasksList.appendChild(listItem);
-        inputTask.focus();
         inputTask.value = '';
         bindTaskEvents(listItem)
         saveList(tasks)
