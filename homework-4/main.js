@@ -147,7 +147,7 @@ function toDoListApp() {
             tasks[i].monthCreatedAt = new Date().getMonth();
             tasks[i].dayCreatedAt = new Date().getDay();
             tasks[i].createdAd = Date.now();
-            divTime.innerHTML = setDate()
+            divTime.innerHTML = setDate();
         }
         span.focus();
         saveList(tasks);
@@ -204,7 +204,7 @@ function toDoListApp() {
             const listItem = createTaskElem(li.text);
             listItem.setAttribute('data-task-index', c++);
             const divTime = listItem.querySelector('div.time');
-            divTime.innerHTML = `${li.hoursCreatedAt}:${li.minutesCreatedAt}`;
+            divTime.innerHTML = `${li.dayCreatedAt}.${li.monthCreatedAt}.${li.yearCreatedAt} ${li.hoursCreatedAt}:${li.minutesCreatedAt}`;
             if (li.done === true) listItem.classList.add('done-task');
             bindTaskEvents(listItem);
             tasksList.appendChild(listItem);
