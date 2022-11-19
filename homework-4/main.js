@@ -155,18 +155,7 @@ function toDoListApp() {
     }
 
     function setDate() {
-        let date = new Date();
-        let year = date.getFullYear()
-        let month = date.getMonth()
-        let day = date.getDay();
-        let hours = new Date().getHours();
-        let minutes = new Date().getMinutes();
-        year = year < 10 ? '0' + year : year;
-        month = month < 10 ? '0' + month : month;
-        day = day < 10 ? '0' + day : day;
-        hours = hours < 10 ? '0' + hours : hours;
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        return `${day}.${month}.${year} ${hours}:${minutes}`;
+        return `${new Date().getDay()}.${new Date().getMonth()}.${new Date().getFullYear()} ${new Date().getHours()}:${new Date().getMinutes()}`;
     }
 
     function bindTaskEvents(listItem) {
