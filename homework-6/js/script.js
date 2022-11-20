@@ -65,7 +65,7 @@ function setGitHubProfile() {
             reposBlock.className = 'line'
             reposName.innerHTML = `name: ${item.name}`
             branch.innerHTML = `branch: ${item.default_branch}`
-            commitAt.innerHTML = `commit at: ${item.pushed_at}`
+            commitAt.innerHTML = `commit at: ${new Date(item.pushed_at).toLocaleString()}`
             reposBlock.appendChild(reposName)
             reposBlock.appendChild(branch)
             reposBlock.appendChild(commitAt)
