@@ -2,43 +2,36 @@ function setGitHubProfile() {
     const apiLink ='https://api.github.com/users/makushenkoao';
     const openReposInfo = document.querySelector('.repositories')
     const reposContent = document.querySelector('.repositories-content');
+
     let condition = false;
 
-    document.querySelector('.log-out').addEventListener('click', () => document.location.href = "index.html");
-
     document.addEventListener("DOMContentLoaded",(e)=>{
-        e.preventDefault();
+        getUserInfo(apiLink).then(data => data);
         setTimeout(() => {
             document.querySelector('header').classList.remove('none')
             document.querySelector('section').classList.remove('none')
             document.querySelector('.container-loading').classList.add('none')
-        }, 2000);
-        setTimeout(() => {
-            getUserInfo(apiLink).then(data => data);
-        }, 1500);
+        }, 2500);
     });
 
     openReposInfo.addEventListener('click', () => {
         condition = !condition
         if (condition) {
+            getReposInfo(`${apiLink}/repos`).then(data => data);
             document.querySelector('.about-profile-content').classList.add('none')
             document.querySelector('header').classList.add('none')
             document.querySelector('section').classList.add('none')
             document.querySelector('.container-loading').classList.remove('none')
             setTimeout(() => {
-                getReposInfo(`${apiLink}/repos`).then(data => data);
-            }, 1500);
-            setTimeout(() => {
                 document.querySelector('.container-loading').classList.add('none')
                 document.querySelector('header').classList.remove('none')
                 document.querySelector('section').classList.remove('none')
                 document.querySelector('.about-profile-content').classList.remove('none')
-            }, 2000);
+            }, 2500);
         } else {
             document.querySelector('.about-profile-content').classList.add('none')
         }
     })
-
 
     function showUserInfo (data){
         const login = document.querySelector('.login')
