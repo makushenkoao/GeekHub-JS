@@ -79,7 +79,6 @@ function toDoListApp() {
         inputTask.value = '';
         bindTaskEvents(listItem)
         saveList(tasks)
-
     }
 
     function saveList(arr) {

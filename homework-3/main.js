@@ -100,15 +100,13 @@ const numerator = {
 // 2.4
 
 const element = {
-  height: function () {
-    return 25
-  },
-  getHeight: function () {
-    return this.height;
-  }
+    height: 25,
+    getHeight: function() {
+        return this.height;
+    }
 };
-const getElementHeight = element.getHeight();
-getElementHeight()
+const getElementHeight = element.getHeight.bind(element);
+getElementHeight();
 
 
 // task 4
