@@ -5,7 +5,7 @@ function setGitHubProfile() {
 
     let condition = false;
 
-    document.addEventListener("DOMContentLoaded",(e)=>{
+    document.addEventListener("DOMContentLoaded",()=>{
         getUserInfo(apiLink).then(data => data);
         setTimeout(() => {
             document.querySelector('header').classList.remove('none')
