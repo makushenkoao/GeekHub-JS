@@ -4,18 +4,23 @@ function toDoListApp() {
     const tasksList = document.getElementById('js-tasksList');
     const sortAlphabetButton = document.getElementById('js-sortAlphabet');
     const sortTimeButton = document.getElementById('js-sortTime');
+
     let tasks = [];
-    let condition = false;
+
+    if (localStorage.getItem('todos')) {
+        tasks = JSON.parse(localStorage.getItem('todos'));
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        renderTasks(tasks)
+        inputTask.focus()
+    })
 
     form.addEventListener('submit', addTask)
-    window.addEventListener('DOMContentLoaded', () => {
-        inputTask.focus()
-        getList()
-    })
     sortAlphabetButton.addEventListener('click', sortListByAlphabet);
     sortTimeButton.addEventListener('click', sortListByTime);
 
-    function createTaskElem(task) {
+    function createTaskElem(obj, index) {
         const listItem = document.createElement('li');
         const span = document.createElement('span');
         const div = document.createElement('div')
@@ -23,13 +28,14 @@ function toDoListApp() {
         const doneButton = document.createElement('button');
         const deleteButton = document.createElement('button');
         const editButton = document.createElement('button');
-        const attr = document.createAttribute('draggable');
 
-        divTime.innerHTML = setDate()
+        span.innerHTML = obj.text;
+        divTime.innerHTML = setTaskCreationDate(obj)
         doneButton.innerHTML = '<img src="./img/done.svg" alt="done">';
         deleteButton.innerHTML = '<img src="./img/delete.svg" alt="delete">';
         editButton.innerHTML = '<img src="./img/edit.svg" alt="edit">';
         listItem.className = 'todo-list-item js-drag';
+
         span.className = 'task-title'
         div.className = 'task-buttons';
         divTime.className = 'time';
@@ -37,9 +43,8 @@ function toDoListApp() {
         deleteButton.className = 'task-btn btn-delete btn-click';
         editButton.className = 'task-btn btn-edit btn-click';
 
-        attr.value = 'true';
-        listItem.setAttributeNode(attr);
-        span.innerHTML = task;
+        listItem.setAttribute('draggable', true);
+        listItem.setAttribute('data-task-index', index)
 
         listItem.appendChild(span);
         div.appendChild(divTime)
@@ -48,199 +53,123 @@ function toDoListApp() {
         div.appendChild(editButton)
         listItem.appendChild(div)
 
+        if (obj.done === true) listItem.classList.add('done-task')
+        else listItem.classList.remove('done-tasks')
+
         return listItem
     }
 
     function addTask(event) {
         event.preventDefault();
-        const spanList = document.querySelectorAll('span');
-        spanList.forEach(item => {
-            if (item.innerText === inputTask.value) {
-                alert(new Error('You have this task'));
-                inputTask.value = '';
-            }
-        })
         if (inputTask.value === '') return;
-        const newTask = {
+        tasks.push({
             text: inputTask.value,
             done: false,
-            createdAd: Date.now(),
-            yearCreatedAt: new Date().getFullYear(),
-            monthCreatedAt: new Date().getMonth(),
-            dayCreatedAt: new Date().getDay(),
-            hoursCreatedAt: new Date().getHours(),
-            minutesCreatedAt: new Date().getMinutes(),
-        };
-        const index = tasks.length
-        const listItem = createTaskElem(newTask.text);
-        listItem.setAttribute('data-task-index', index)
-        tasks.push(newTask)
-        tasksList.appendChild(listItem);
-        inputTask.value = '';
-        bindTaskEvents(listItem)
-        saveList(tasks)
+            createdAt: Date.now(),
+        })
+        saveList(tasks);
+        renderTasks(tasks);
+        inputTask.value = ''
     }
 
     function saveList(arr) {
         localStorage.setItem('todos', JSON.stringify(arr));
     }
 
-    function getList() {
-        let c = 0
-        let localData = localStorage.getItem('todos');
-        if (localData !== null && localData !== '') tasks = JSON.parse(localData)
-        for (let item of tasks) {
-            const listItem = createTaskElem(item.text, tasks);
-            const divTime = listItem.querySelector('div.time');
-            console.log(item)
-            divTime.innerHTML = `${item.dayCreatedAt}.${item.monthCreatedAt}.${item.yearCreatedAt} ${item.hoursCreatedAt}:${item.minutesCreatedAt}`
-            if (item.done === true) listItem.classList.add('done-task')
-            listItem.setAttribute('data-task-index', c++)
+    function renderTasks(arr) {
+        tasksList.innerHTML = '';
+        arr.forEach((item, index) => {
+            const listItem = createTaskElem(item, index);
             tasksList.appendChild(listItem);
-            bindTaskEvents(listItem)
-        }
-    }
-
-    function deleteTask(event) {
-        let c = 0
-        const li = event.target.closest('.todo-list-item');
-        li.remove()
-        const currentName = li.firstChild.textContent
-        for (let i = 0; i < tasks.length; i++) {
-            if (tasks[i].text === currentName) tasks.splice(i, 1);
-        }
-        saveList(tasks)
-        const listItem = document.querySelectorAll('.js-drag')
-        listItem.forEach(item => {
-            item.setAttribute('data-task-index', c++)
+            bindTaskEvents(listItem);
+            addEventListeners();
         })
     }
 
+    function setTaskCreationDate(obj) {
+        return new Date(obj.createdAt).toLocaleString();
+    }
+
     function doneTask(event) {
-        const li = event.target.closest('.todo-list-item');
-        li.classList.toggle('done-task')
-        const currentName = li.firstChild.textContent
-        for (let item of tasks) {
-            if (item.text === currentName) item.done = !item.done
-        }
-        saveList(tasks)
+        const index = event.target.closest('.todo-list-item').getAttribute('data-task-index');
+        tasks[index].done = !tasks[index].done;
+        saveList(tasks);
+        renderTasks(tasks);
+    }
+
+    function deleteTask(event) {
+        const index = event.target.closest('.todo-list-item').getAttribute('data-task-index');
+        tasks.splice(index, 1);
+        saveList(tasks);
+        renderTasks(tasks);
     }
 
     function editTask(event) {
-        condition = !condition;
-        const listItem = event.target.closest('.todo-list-item');
-        const span = listItem.querySelector('span');
-        const divTime = listItem.querySelector('div.time')
-        const i = listItem.getAttribute('data-task-index');
-        const btn = listItem.querySelector('button.btn-edit');
-        if (condition) {
+        const index = event.target.closest('.todo-list-item').getAttribute('data-task-index');
+        const span = event.target.closest('.todo-list-item').querySelector('span')
+        const editButton = event.target.closest('.todo-list-item').querySelector('.btn-edit')
+        if (!span.getAttribute('contentEditable')) {
             span.setAttribute('contentEditable', true);
-            btn.innerHTML = '<img src="./img/save.svg" alt="save">';
+            span.focus();
+            editButton.innerHTML = '<img src="./img/save.svg" alt="edit">';
         } else {
             span.removeAttribute('contentEditable');
-            btn.innerHTML = '<img src="./img/edit.svg" alt="done">';
-            tasks[i].text = span.textContent;
-            tasks[i].hoursCreatedAt = new Date().getHours();
-            tasks[i].minutesCreatedAt = new Date().getMinutes();
-            tasks[i].yearCreatedAt = new Date().getFullYear();
-            tasks[i].monthCreatedAt = new Date().getMonth();
-            tasks[i].dayCreatedAt = new Date().getDay();
-            tasks[i].createdAd = Date.now();
-            divTime.innerHTML = setDate();
+            tasks[index].text = span.textContent;
+            tasks[index].createdAt = Date.now();
+            renderTasks(tasks);
+            saveList(tasks);
         }
-        span.focus();
-        saveList(tasks);
-    }
-
-    function setDate() {
-        return `${new Date().getDay()}.${new Date().getMonth()}.${new Date().getFullYear()} ${new Date().getHours()}:${new Date().getMinutes()}`;
     }
 
     function bindTaskEvents(listItem) {
-        const doneButton = listItem.querySelector('button.btn-done');
-        const deleteButton = listItem.querySelector('button.btn-delete');
-        const editButton = listItem.querySelector('button.btn-edit')
-        doneButton.onclick = doneTask;
-        deleteButton.onclick = deleteTask;
-        editButton.onclick = editTask
+        listItem.querySelector('button.btn-done').onclick = doneTask;
+        listItem.querySelector('button.btn-delete').onclick = deleteTask;
+        listItem.querySelector('button.btn-edit').onclick = editTask;
     }
 
     function sortListByAlphabet() {
-        condition = !condition;
-        let sorted;
-        let items = document.querySelectorAll('.js-drag');
-        if (condition) {
-            tasks.sort((a, b) => a.text > b.text ? 1 : -1);
-            sorted = [...items].sort((a, b) => {
-                a = a.innerHTML.slice(2);
-                b = b.innerHTML.slice(2);
-                if (a > b) return 1;
-                if (a < b) return -1;
-                return 0;
-            })
-        } else {
-            tasks.reverse();
-            sorted = [...items].reverse()
-        }
-        tasksList.innerHTML = '';
-        for (const li of sorted) {
-            tasksList.appendChild(li);
-        }
-        saveList(tasks);
+        if (tasks.every((item, i) => i === 0 || item.text >= tasks[i - 1].text)) tasks.sort((a, b) => a.text > b.text ? -1 : 1);
+        else tasks.sort((a, b) => a.text > b.text ? 1 : -1);
+        renderTasks(tasks);
     }
+
 
     function sortListByTime() {
-        let c = 0;
-        condition = !condition;
-        let sorted;
-        if (condition) {
-            sorted = tasks.sort((a, b) => a.createdAd > b.createdAd ? 1 : -1);
-        } else {
-            sorted = tasks.reverse();
-        }
-        tasksList.innerHTML = '';
-        for (const li of sorted) {
-            const listItem = createTaskElem(li.text);
-            listItem.setAttribute('data-task-index', c++);
-            const divTime = listItem.querySelector('div.time');
-            divTime.innerHTML = `${li.dayCreatedAt}.${li.monthCreatedAt}.${li.yearCreatedAt} ${li.hoursCreatedAt}:${li.minutesCreatedAt}`;
-            if (li.done === true) listItem.classList.add('done-task');
-            bindTaskEvents(listItem);
-            tasksList.appendChild(listItem);
-        }
-        saveList(tasks)
+        if (tasks.every((item, i) => i === 0 || item.createdAt >= tasks[i - 1].createdAt)) tasks.sort((a, b) => a.createdAt > b.createdAt ? -1 : 1);
+        else tasks.sort((a, b) => a.createdAt > b.createdAt ? 1 : -1);
+        renderTasks(tasks);
     }
 
-    function dragStart(event) {
-        event.target.classList.add('over');
+    let startIndex;
+
+    function dragStart() {
+        startIndex = this.getAttribute('data-task-index');
     }
 
-    function dragEnd(event) {
-        event.target.classList.remove('over');
+    function dragEnter(event) {
+        event.preventDefault();
+        const endIndex = this.getAttribute('data-task-index')
+        if (startIndex !== endIndex) {
+            const source = tasks[startIndex];
+            tasks.splice(startIndex, 1);
+            tasks.splice(endIndex, 0, source);
+            startIndex = endIndex
+        }
     }
 
     function dragOver(event) {
         event.preventDefault();
-        const activeElem = tasksList.querySelector('.over');
-        const currentElem = event.target;
-        const move = activeElem !== currentElem && currentElem.classList.contains('js-drag');
-        if (!move) return;
-        const nextElement = (currentElem === activeElem.nextElementSibling) ? currentElem.nextElementSibling : currentElem;
-        tasksList.insertBefore(activeElem, nextElement);
+        saveList(tasks);
+        renderTasks(tasks);
     }
 
-
-    function addEventsDragAndDrop(elem) {
-        elem.addEventListener('dragstart', dragStart);
-        elem.addEventListener('dragover', dragOver);
-        elem.addEventListener('dragend', dragEnd);
+    function addEventListeners() {
+        document.querySelectorAll('.js-drag').forEach(item => {
+            item.addEventListener('dragstart', dragStart);
+            item.addEventListener('dragover', dragOver);
+            item.addEventListener('dragenter', dragEnter);
+        });
     }
-
-    addEventsDragAndDrop(tasksList)
 }
 
-toDoListApp()
-
-
-
-
+toDoListApp();
