@@ -1,0 +1,164 @@
+.container {
+    padding: 15px 15px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-pet {
+    padding-bottom: 20px;
+}
+
+.add-pet-btn {
+    background-color: #d4d4d4;
+    padding: 10px 10px;
+    border-radius: 6px;
+    transition: .3s;
+}
+
+.add-pet-btn:hover {
+    background-color: rgb(212,212,212,50%);
+}
+
+.add-pet-btn:active {
+    scale: 1.1;
+}
+
+.add-pet-input {
+    background-color: #d4d4d4;
+    padding: 10px 5px;
+    border-radius: 6px;
+}
+
+.tamagotchi-content {
+    margin-bottom: 20px;
+}
+
+.tamagotchi-content {
+    width: 400px;
+    padding: 10px 30px 100px 30px;
+    border: 1px solid #d4d4d4;
+    background-color: #e7e7e7;
+    border-radius: 10px;
+
+}
+
+.tamagotchi-info {
+    padding-bottom: 15px;
+}
+
+.tamagotchi-info-name {
+    font-size: 25px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.scale {
+    width: 100%;
+    background: rgba(173, 216, 230, 0.5) ;
+    border-radius: 6px;
+}
+
+.scale div {
+    width: 100%;
+    background: lightblue;
+    padding: 5px;
+    border-radius: 6px;
+    text-align: left;
+}
+
+span {
+    padding-left: 10px;
+}
+
+.btn {
+    background-color: #d4d4d4;
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    transition: .3s;
+
+}
+
+.btn:hover {
+    background-color: rgb(212,212,212,50%);
+}
+
+.btn:active {
+    scale: 1.1;
+}
+
+.message p {
+    text-align: center;
+    padding-bottom: 15px;
+    font-size: 25px;
+    color: red;
+}
+
+.cross-out {
+    text-decoration: line-through;
+}
+
+.tamagotchi-pet {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+}
+
+.right-arm, .left-arm {
+    position: absolute;
+    content: "";
+    top: 65%;
+    background-color: #FDD9B5;
+    width: 80px;
+    height: 25px;
+    border-radius: 16px;
+}
+
+.right-arm {
+    right: 65%;
+    transform: rotate(-50deg)
+}
+
+.left-arm {
+    left: 65%;
+    transform: rotate(50deg)
+}
+
+.right-leg, .left-leg {
+    position: absolute;
+    content: "";
+    bottom: -4%;
+    background-color: #FDD9B5;
+    width: 100px;
+    height: 25px;
+    border-radius: 16px;
+    transform: rotate(90deg)
+
+}
+
+.right-leg {
+    left: 15%;
+}
+
+.left-leg {
+    right: 15%;
+}
+
+.emoji {
+    position: absolute;
+    content: "";
+    right: 50%;
+    top: 50%;
+    transform: translate(50%, -50%);
+    width: 120px;
+    height: 120px;
+    background-image: url('./../img/smile.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+
