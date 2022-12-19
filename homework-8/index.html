@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="./main.css">
+    <title>homework 8</title>
+</head>
+<body>
+    <section class="container">
+        <h1 class="js-show-completed-message none">Registration successfully completed!</h1>
+        <form>
+            <div class="form-group">
+                <label>First name</label>
+                <input type="text" class="form-control" id="inputName" placeholder="Write First name">
+                <p class="js-show-error-message-name"></p>
+            </div>
+            <div class="form-group">
+                <label >Last name</label>
+                <input type="text" class="form-control" id="inputLastName" placeholder="Write Last name">
+                <p class="js-show-error-message-last-name"></p>
+            </div>
+            <div class="form-group">
+                <label>Phone number</label>
+                <input type="tel" class="form-control" id="inputPhoneNumber" placeholder="Write phone number">
+                <p class="js-show-error-message-phone-number"></p>
+            </div>
+            <div class="form-group">
+                <label >Email</label>
+                <input type="text" class="form-control" id="inputEmail" placeholder="Write email">
+                <p class="js-show-error-message-email"></p>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" id="inputPassword" placeholder="Write password">
+                <p class="js-show-error-message-password"></p>
+            </div>
+            <div class="form-group">
+                <label >Confirm password</label>
+                <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Write the password again">
+                <p class="js-show-error-message-confirm-password"></p>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        </form>
+    </section>
+    <script src="./main.js"></script>
+</body>
+</html>
