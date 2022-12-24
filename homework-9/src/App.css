@@ -1,0 +1,27 @@
+*{
+  margin: 0;
+  font-size: 25px;
+}
+
+.background {
+  position: relative;
+  height: 100vh;
+  text-align: center;
+  cursor: pointer;
+}
+
+.dominant-color, .average-color {
+  position: absolute;
+  top: 0;
+  padding: 100px;
+  background-color: lightyellow;
+  border: 2px solid #000;
+}
+
+.average-color {
+  left: 0;
+}
+
+.dominant-color {
+  right: 0;
+}
