@@ -1,0 +1,65 @@
+body {
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+input, select, form label {
+  margin-bottom: 10px;
+}
+
+input, select {
+  cursor: pointer;
+}
+
+button {
+  max-width: 100px;
+  padding: 5px;
+}
+
+.wrapper {
+  margin-top: 20px;
+  border: 1px solid #000;
+  padding: 20px;
+}
+
+.checkbox {
+  display: block;
+
+}
+
+.input-password {
+  position: relative;
+}
+
+.icon-btn {
+  border: none;
+  position: absolute;
+  cursor: pointer;
+  content: '';
+  bottom: 12px;
+  width: 18px;
+  height: 18px;
+  background-color: #fff;
+  background-image: url("./icons/eye-slash.svg");
+  margin-left: 10px;
+}
+
+div {
+  display: inline-block;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+span {
+  font-size: 18px;
+  color: red;
+  margin-bottom: 5px;
+}
+
+.hide {
+  display: none;
+}
+
