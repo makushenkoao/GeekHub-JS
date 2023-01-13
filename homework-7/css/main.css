@@ -155,10 +155,10 @@ span {
     transform: translate(50%, -50%);
     width: 120px;
     height: 120px;
+    background-image: url('./../img/smile.svg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-    background-image: url('../img/smile.svg');
 }
 
 
