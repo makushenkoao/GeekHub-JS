@@ -1,5 +1,4 @@
-import './App.css';
-import Palette from './Components/Palette/Palette';
+import {Palette} from './Components/Palette/Palette';
 
 function App() {
   return (

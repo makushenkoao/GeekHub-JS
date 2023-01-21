@@ -1,13 +1,13 @@
 import React from 'react';
-import './../../App.css'
 
-let myRef = React.createRef()
-
-const AverageColor = (props) => {
-    if (props.red !== undefined && props.green !== undefined && props.blue !== undefined) myRef.current.innerHTML = `average color: rgb(${props.red} ${props.green} ${props.blue})`
-
+const AverageColor = ({averageColor: {red, green, blue}}) => {
+    console.log(green)
     return (
-        <div className='average-color' style={{background: `rgb(${props.red} ${props.green} ${props.blue})`}} ref={myRef}>Average</div>
+        <div
+            className='average-color'
+        >
+            Average color: rgb({red}, {green}, {blue})
+        </div>
     );
 };
 
