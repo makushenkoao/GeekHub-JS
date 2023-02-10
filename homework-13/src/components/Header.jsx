@@ -6,7 +6,7 @@ import ReplayIcon from '@mui/icons-material/Replay';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
-export const Header = ({reloadStories}) => {
+export const Header = ({reloadStories, reloadComments}) => {
     const {id} = useParams()
     const navigate = useNavigate()
     const classes = useStyles()
@@ -27,14 +27,27 @@ export const Header = ({reloadStories}) => {
                             />
                         </Tooltip>
                         :
-                        <Tooltip title="Come back" className={classes.icon}>
-                            <ArrowBackIcon
-                                className={classes.cursor}
-                                color='transparent'
-                                fontSize="large"
-                                onClick={() => navigate('/')}
-                            />
-                        </Tooltip>
+                        <Typography
+                            component='span'
+                            style={{display: 'flex', gap: 10}}
+                        >
+                            <Tooltip title="Come back" className={classes.icon}>
+                                <ArrowBackIcon
+                                    className={classes.cursor}
+                                    color='transparent'
+                                    fontSize="large"
+                                    onClick={() => navigate('/')}
+                                />
+                            </Tooltip>
+                            <Tooltip title="Reload comments" className={classes.icon}>
+                                <ReplayIcon
+                                    className={classes.cursor}
+                                    color='transparent'
+                                    fontSize="large"
+                                    onClick={reloadComments}
+                                />
+                            </Tooltip>
+                        </Typography>
                     }
                 </Toolbar>
             </AppBar>

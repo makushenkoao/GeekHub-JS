@@ -11,6 +11,8 @@ import {
     setCommentsAreLoading,
     setCommentsAreError, setSubCommentsAreLoading, setSubCommentsAreError
 } from "../store/storiesReducer";
+import {NotFound} from "../components/NotFound";
+import {useNavigate} from "react-router-dom";
 
 const BASE_URL = 'https://hacker-news.firebaseio.com/v0';
 const NEWS_STORIES_URL = `${BASE_URL}/newstories.json?orderBy=%22$key%22&limitToFirst=100`;

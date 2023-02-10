@@ -4,7 +4,7 @@ import {Card} from "./Card";
 import {Comments} from "./Comments";
 import {getComments, getStory} from "../services/api";
 import {Alert, Container, CircularProgress, Typography} from "@mui/material";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {TreeView} from "@mui/lab";
 import {useDispatch, useSelector} from "react-redux";
 import {useStyles} from "../hooks/useStyles";
@@ -15,7 +15,7 @@ export const Story = () => {
     const {id} = useParams()
     const classes = useStyles();
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     const {
         story,
         comments,
@@ -23,14 +23,24 @@ export const Story = () => {
         storyIsError,
         commentsAreLoading,
         commentsAreError,
-        subCommentsAreLoading,
         subCommentsAreError,
     } = useSelector(state => state.stories)
-
 
     useEffect(() => {
         dispatch(getStory(id))
     }, [])
+
+    useEffect(() => {
+        if (!storyIsLoading && !story) {
+            navigate('/notfound')
+        }
+    }, [storyIsLoading])
+
+    const reloadComments = () => {
+        if (story.kids) {
+            dispatch(getComments(story.kids))
+        }
+    }
 
     useEffect(() => {
         story && story.kids &&
@@ -39,7 +49,9 @@ export const Story = () => {
 
     return (
         <Container>
-            <Header />
+            <Header
+                reloadComments={reloadComments}
+            />
             {storyIsError && <Alert severity="error">{storyIsError}</Alert>}
             {commentsAreError && <Alert severity="error">{commentsAreError}</Alert>}
             {subCommentsAreError && <Alert severity="error">{subCommentsAreError}</Alert>}

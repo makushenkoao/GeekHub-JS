@@ -21,13 +21,17 @@ export const Comment = ({comments}) => {
 
     const filterSubComments = subComments.filter(item => item.data.parent === id);
 
+    const uniqueSubComments = filterSubComments.filter((obj, index, self) =>
+            index === self.findIndex((t) => t.data.id === obj.data.id
+    ));
+
     return (
         <>
             {comments && !comments.deleted && !comments.dead &&
                 <>
                     <TreeItem
                         nodeId={String(id)}
-                        disabled={subCommentsAreLoading}
+                        disabled={Boolean(subComments.length) && subCommentsAreLoading}
                         label={
                             <List >
                                 {by &&
@@ -59,7 +63,7 @@ export const Comment = ({comments}) => {
                             </List>
                     }
                     >
-                        {kids && <Comments comments={filterSubComments} />}
+                        {kids && <Comments comments={uniqueSubComments} />}
                     </TreeItem>
                 </>
             }

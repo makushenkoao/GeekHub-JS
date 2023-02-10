@@ -8,6 +8,7 @@ export const App = () => {
     return useRoutes([
         {path: '/', element: <Stories/>},
         {path: '/story/:id', element: <Story/>},
+        {path: 'notfound', element: <NotFound/>},
         {path: '*', element: <NotFound/>}
     ])
 };
