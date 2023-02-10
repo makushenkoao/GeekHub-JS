@@ -1,0 +1,10 @@
+body {
+    background: #4d4d4d;
+}
+
+.balloon {
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    position: absolute;
+}
