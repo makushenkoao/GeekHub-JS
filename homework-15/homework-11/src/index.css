@@ -1,0 +1,110 @@
+* {
+  margin : 0;
+  padding: 0;
+}
+
+body {
+  background: #d4d4d4;
+  color: #000;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-align: center;
+}
+
+.TodoList {
+  width: 500px;
+  margin: 100px auto;
+}
+
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.filter-buttons button {
+  padding: 10px;
+  transition: .2s;
+}
+
+.filter-buttons button:active {
+  transform: scale(0.9);
+}
+
+.todos {
+  border: 1px solid #4d4d4d;
+}
+
+.TodoItem,
+.UserTodoItem {
+  padding: 10px 15px;
+  border-bottom: 1px solid #4d4d4d;
+
+}
+
+.TodoItem-header {
+  margin: 5px 20px;
+}
+
+.Sidebar {
+  z-index: 10;
+  position: fixed;
+  width: 300px;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  background: #4d4d4d;
+}
+
+.Sidebar-header {
+  padding: 5px 20px;
+}
+
+.Sidebar-users {
+  color: #eee;
+  padding: 20px 20px;
+}
+
+.Link {
+  color: #000;
+  text-decoration: none;
+}
+
+.Link:hover {
+  background: #000;
+}
+
+.User {
+  padding: 10px 15px;
+}
+
+.UserTodos {
+  border: 1px solid #4d4d4d;
+}
+
+.User:hover,
+.UserTodos div:hover {
+  background: #727272;
+}
+
+.TodoInfo {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 50px auto;
+  border: 1px solid #4d4d4d;
+}
+
+.TodoInfo-description {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  margin-top: 30px;
+}
+
+.TodoInfo-description span {
+  margin-bottom: 10px;
+}
