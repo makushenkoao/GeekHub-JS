@@ -102,13 +102,11 @@ const price: IPrice = {
 
 // 2.3
 
-type numeratorType = () => object
-
 interface INumerator {
     value: number,
-    double: numeratorType,
-    plusOne: numeratorType,
-    minusOne: numeratorType,
+    double(): INumerator,
+    plusOne(): INumerator,
+    minusOne(): INumerator,
 }
 
 const numerator: INumerator = {
@@ -127,7 +125,6 @@ const numerator: INumerator = {
         this.value--;
         return this;
     },
-
 }
 
 // 2.4
@@ -174,13 +171,12 @@ function multiplyMaker(val: number): (num:number) => number {
     return (num = 1) => a *= num;
 }
 
-const multiply = multiplyMaker(2);
 
 // 5.3
 
 interface IStringModule {
     setStr: (val: string) => void,
-    getStr:  () => string,
+    getStr: () => string,
     strReverse: () => string,
     strLength: () => number,
 }
@@ -210,16 +206,14 @@ const str = stringModule()
 
 // 5.4
 
-type calcModuleType = (val: number) => object
-
 interface ICalcModule {
-    setNum: calcModuleType,
-    getNum: () => number,
-    numPlus: calcModuleType,
-    numMinus: calcModuleType,
-    numMultiply: calcModuleType,
-    numDivide: calcModuleType,
-    numPow: calcModuleType,
+    setNum(val: number): ICalcModule,
+    getNum(): number,
+    numPlus(val: number): ICalcModule,
+    numMinus(val: number): ICalcModule,
+    numMultiply(val: number): ICalcModule,
+    numDivide(val: number): ICalcModule,
+    numPow(val: number): ICalcModule,
 }
 
 function calcModule(): ICalcModule {
