@@ -46,7 +46,7 @@ export class UserService {
         return post.save();
     }
 
-    async delete(id: string): Promise<Post | null> {
+    async delete(id: string): Promise<Post> {
         const post = await PostModel.findByIdAndDelete(id).exec();
 
         if (!post) {
